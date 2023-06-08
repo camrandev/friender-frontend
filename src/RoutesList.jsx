@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
+import Homepage from './Homepage';
+import LoginForm from './LoginForm';
 import userContext from "./userContext";
 
  /** DESCRIPTION
@@ -22,8 +24,8 @@ function RoutesList ({login, signup, update}) {
       <Route path="/signup" element={<SignUpForm signUp={signUp}/>} />
       {user &&
       <>
-      <Route path="/jobs" element={<Jobs />} />
-      <Route path="/matches" element={<Profile update={update} />} />
+      <Route path="/profile" element={<Profile update={update} />} />
+      <Route path="/matches" element={<Matches />} />
       </>
       }
       <Route path="/*" element={<Navigate to="/" />} />

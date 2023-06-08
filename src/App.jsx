@@ -2,8 +2,9 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Navigate } from "react-router-dom";
 import RoutesList from "./RoutesList";
-import Nav from "./Nav";
+import NavBar from "./NavBar";
 import FrienderApi from "./api";
+import Homepage from "./Homepage";
 import jwt_decode from "jwt-decode";
 import userContext from "./userContext";
 import useLocalStorage from "./useLocalStorage";
@@ -22,7 +23,7 @@ import useLocalStorage from "./useLocalStorage";
  * App -> {Routeslist, NavBar}
  */
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useLocalStorage();
   const [user, setUser] = useState(null);
 
@@ -44,13 +45,22 @@ function App() {
     setToken(newToken);
   }
 
+    /**allows a user to update their own info when logged in */
+    async function update({ username, lastName, email, firstName }) {
+      const userInfo = await JoblyApi.updateUser(
+        { lastName, email, firstName },
+        username
+      );
+      setUser({ ...userInfo });
+    }
+
   //NOTE: need to modify, as we are potentially storing user matches state lower down
-  if (isLoading)
-    return (
-      <h1 className="position-absolute top-50 start-50 text-white">
-        Loading....
-      </h1>
-    );
+  // if (isLoading)
+  //   return (
+  //     <h1 className="position-absolute top-50 start-50 text-white">
+  //       Loading....
+  //     </h1>
+  //   );
 
   return (
     <div className="App">
