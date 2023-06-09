@@ -15,7 +15,10 @@ import { Navigate } from "react-router-dom";
  */
 
 function LoginForm({ handleAuth, formTitle }) {
-  const [formData, setFormData] = useState({email:"testing@testing.com", password: "loltesting"});
+  const [formData, setFormData] = useState({
+    email: "jamielannister@example.com",
+    password: "password1",
+  });
   const { user } = useContext(userContext);
   const [errors, setErrors] = useState([]);
 
@@ -35,7 +38,7 @@ function LoginForm({ handleAuth, formTitle }) {
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
-      console.log("form data is", formData)
+      console.log("form data is", formData);
       await handleAuth(formData);
       handleError([]);
     } catch (error) {

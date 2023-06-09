@@ -16,14 +16,17 @@ function Homepage() {
 
   return (
     <div className="position-absolute top-50 start-50 translate-middle">
-      <h1 className="text-center text-white text-shadow">Friender</h1>
-      <h4 className="text-center text-white">
+      <h1 className="text-center text-shadow">Friender</h1>
+      <h4 className="text-center ">
         All of the friends, none of the benefits
       </h4>
       {user && (
-        <h2 className="text-white text-center">
+        <>
+        <h2 className="text-center">
           Welcome Back {user.firstName}!
         </h2>
+        <Link className="btn btn-success"to="/swipe">Start Swiping</Link>
+        </>
       )}
       {!user && (
         <div className="d-flex justify-content-center">
