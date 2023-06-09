@@ -61,7 +61,7 @@ function Swipe() {
 
   if (isLoading)
     return (
-      <h1 className="position-absolute top-50 start-50 text-white">
+      <h1 className="position-absolute top-50 start-50">
         Loading....
       </h1>
     );
