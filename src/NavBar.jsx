@@ -24,8 +24,11 @@ function NavBar({ logout }) {
         <NavLink to="/" className="navbar-brand">
           Friender
         </NavLink>
-        {user ? (
+        {/* {user ? ( */}
           <div className="navbar-nav mr-auto">
+          <NavLink to="/swipe" className="nav-link">
+              Swipe
+            </NavLink>
             <NavLink to="/matches" className="nav-link">
               Matches
             </NavLink>
@@ -33,10 +36,10 @@ function NavBar({ logout }) {
               Profile
             </NavLink>
             <NavLink to="/" className="nav-link" onClick={handleLogout}>
-              Log out: {`${user.username}`}
+              Log out
             </NavLink>
           </div>
-        ) : (
+        {/* ) : ( */}
           <div className="navbar-nav mr-auto">
             <NavLink to="/login" className="nav-link">
               Login
@@ -45,7 +48,7 @@ function NavBar({ logout }) {
               Sign Up
             </NavLink>
           </div>
-        )}
+        {/* )} */}
       </div>
     </nav>
   );

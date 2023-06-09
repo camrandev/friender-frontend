@@ -48,7 +48,7 @@ function App() {
 
   /**allows a user to update their own info when logged in */
   async function update({ username, lastName, email, firstName }) {
-    const userInfo = await FrienderApi.updateUser(
+    const userInfo = await FrienderApi.updateProfile(
       { lastName, email, firstName },
       username
     );

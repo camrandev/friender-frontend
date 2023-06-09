@@ -5,10 +5,9 @@ import userContext from "./userContext";
 function Profile({ update }) {
   const { user } = useContext(userContext);
   const [formData, setFormData] = useState({
-    username: user.username,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email,
+    firstName: 'test',
+    lastName: 'test',
+    email: 'test@test.com',
     image: null, // Added for image upload
   });
 
@@ -55,24 +54,6 @@ function Profile({ update }) {
     <div className="col-6 col mx-auto position-absolute top-50 start-50 translate-middle text-black ">
       <h2 className="text-white">Profile</h2>
       <form onSubmit={handleSubmit} className="bg-white py-4 px-4" encType="multipart/form-data">
-        <fieldset disabled>
-          <div className="mb-3">
-            <label htmlFor="username" className="form-label">
-              Username
-            </label>
-            <input
-              name="username"
-              type="text"
-              className="form-control"
-              id="username"
-              value={user.username || ""}
-              onChange={handleChange}
-              aria-describedby="usernameHelp"
-              aria-required="true"
-              required
-            />
-          </div>
-        </fieldset>
         <div className="mb-3">
           <label htmlFor="firstName" className="form-label">
             First name
