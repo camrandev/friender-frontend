@@ -15,7 +15,7 @@ import { Navigate } from "react-router-dom";
  */
 
 function LoginForm({ handleAuth, formTitle }) {
-  const [formData, setFormData] = useState({email:"", password: ""});
+  const [formData, setFormData] = useState({email:"testing@testing.com", password: "loltesting"});
   const { user } = useContext(userContext);
   const [errors, setErrors] = useState([]);
 

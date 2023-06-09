@@ -5,9 +5,12 @@ import userContext from "./userContext";
 function Profile({ update }) {
   const { user } = useContext(userContext);
   const [formData, setFormData] = useState({
-    firstName: 'test',
-    lastName: 'test',
-    email: 'test@test.com',
+    firstName: user.firstName || "",
+    lastName: user.lastName || "",
+    hobbies: user.hobbies || "",
+    interests: user.interests || "",
+    radius: user.radius || "",
+    zipcode: user.zipcode || "",
     image: null, // Added for image upload
   });
 
@@ -53,7 +56,11 @@ function Profile({ update }) {
   return (
     <div className="col-6 col mx-auto position-absolute top-50 start-50 translate-middle text-black ">
       <h2 className="text-white">Profile</h2>
-      <form onSubmit={handleSubmit} className="bg-white py-4 px-4" encType="multipart/form-data">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white py-4 px-4"
+        encType="multipart/form-data"
+      >
         <div className="mb-3">
           <label htmlFor="firstName" className="form-label">
             First name
@@ -87,17 +94,67 @@ function Profile({ update }) {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email
+          <label htmlFor="interests" className="form-label">
+            Interests
           </label>
           <input
-            name="email"
-            type="email"
+            name="interests"
+            type="interests"
             className="form-control"
-            id="email"
-            value={formData?.email || ""}
+            id="interests"
+            value={formData?.interests || ""}
             onChange={handleChange}
-            aria-describedby="emailHelp"
+            aria-describedby="interestsHelp"
+            aria-required="true"
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="hobbies" className="form-label">
+            Hobbies
+          </label>
+          <input
+            name="hobbies"
+            type="hobbies"
+            className="form-control"
+            id="hobbies"
+            value={formData?.hobbies || ""}
+            onChange={handleChange}
+            aria-describedby="hobbiesHelp"
+            aria-required="true"
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="radius" className="form-label">
+            Match Radius
+          </label>
+          <input
+            name="radius"
+            type="radius"
+            className="form-control"
+            id="radius"
+            value={formData?.radius || ""}
+            onChange={handleChange}
+            aria-describedby="radiusHelp"
+            aria-required="true"
+            required
+          />
+        </div>
+        {/* //TODO: add zipcode verification */}
+        <div className="mb-3">
+          <label htmlFor="zipcode" className="form-label">
+            Zipcode
+          </label>
+          <input
+            name="zipcode"
+            type="zipcode"
+            pattern="^\d{5}$"
+            className="form-control"
+            id="zipcode"
+            value={formData?.zipcode || ""}
+            onChange={handleChange}
+            aria-describedby="zipcodeHelp"
             aria-required="true"
             required
           />
@@ -115,6 +172,7 @@ function Profile({ update }) {
             onChange={handleImageChange}
           />
         </div>
+
         {errors.length > 0 && (
           <div className="alert alert-danger">
             {errors.map((error, index) => (

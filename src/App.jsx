@@ -23,13 +23,15 @@ import useLocalStorage from "./useLocalStorage";
  * App -> {Routeslist, NavBar}
  */
 function App() {
-  // const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useLocalStorage();
+  console.log('token from app', token)
   const [user, setUser] = useState(null);
+  console.log('user in App', user)
 
   /**logs the current user out */
   function logout() {
-    // setIsLoading(false);
+    setIsLoading(false);
     setToken("");
     setUser(null);
   }
@@ -41,7 +43,6 @@ function App() {
 
   /**allows a new user to sign up */
   async function signUp(formData) {
-    console.log('hi from signup')
     const newToken = await FrienderApi.signup(formData);
     setToken(newToken);
   }
@@ -55,13 +56,30 @@ function App() {
     setUser({ ...userInfo });
   }
 
+  useEffect(() => {
+    async function getUserData() {
+      if (token !== "") {
+        const { sub:email } = jwt_decode(token);
+        console.log('decoded token', jwt_decode(token))
+        FrienderApi.token = token;
+        const userInfo = await FrienderApi.getUser(email);
+        setIsLoading(false);
+        setUser({ ...userInfo });
+      } else {
+        console.log('lol')
+        setIsLoading(false);
+      }
+    }
+    getUserData();
+  }, [token]);
+
   //NOTE: need to modify, as we are potentially storing user matches state lower down
-  // if (isLoading)
-  //   return (
-  //     <h1 className="position-absolute top-50 start-50 text-white">
-  //       Loading....
-  //     </h1>
-  //   );
+  if (isLoading)
+    return (
+      <h1 className="position-absolute top-50 start-50 text-white">
+        Loading....
+      </h1>
+    );
 
   return (
     <div className="App">
