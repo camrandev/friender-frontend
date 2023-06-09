@@ -39,7 +39,8 @@ export default class FrienderApi {
   /** Login a user.
    *  {email, password} -> {token}
    */
-  static async login(email, password) {
+  static async login({email, password}) {
+    console.log('email', email, "password", password, 'from signup function')
     let res = await this.request(`login`, {email, password}, "post");
     this.token = res.access_token;
     return res.access_token;
@@ -49,7 +50,6 @@ export default class FrienderApi {
    *  {email, password} -> {token}
    */
   static async signup({email, password}) {
-    console.log('email', email, "password", password, 'from signup function')
     let res = await this.request(`signup`, {email, password}, "post");
     this.token = res.access_token;
     return res.access_token;
