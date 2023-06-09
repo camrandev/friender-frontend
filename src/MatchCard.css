@@ -1,7 +1,5 @@
 .match-card {
-  position: relative;
   transition: box-shadow 0.3s;
-  /* width: 65%; */
 }
 
 .match-card:hover {
@@ -13,11 +11,12 @@
 }
 
 .image-container {
-  /* position: absolute; */
-  top: 0;
-  right: 0;
+  width: 100%; /* Make the container take up the full width of its parent */
+  height: 100%; /* Make the container take up the full height of its parent */
+  overflow: hidden; /* Hide anything that goes outside the container */
 }
 
 .match-logo {
-  width: 4.5rem;
+  width: 100%; /* Make the image take up the full width of its container */
+  height: auto; /* Let the image height scale proportionally */
 }

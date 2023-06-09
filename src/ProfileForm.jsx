@@ -64,14 +64,16 @@ function Profile({ update }) {
           />
         </div>
         <div className="col-6 col mx-auto text-black ">
-          <h2>Profile</h2>
+          <div className="text-center">
+            <h2>Profile</h2>
+          </div>
           <form
             onSubmit={handleSubmit}
             className="bg-white py-4 px-4"
             encType="multipart/form-data"
           >
             <div className="mb-3">
-              <label htmlFor="firstName" className="form-label">
+              <label htmlFor="firstName" className="form-label text-start w-100">
                 First name
               </label>
               <input
@@ -87,7 +89,7 @@ function Profile({ update }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="lastName" className="form-label">
+              <label htmlFor="lastName" className="form-label text-start w-100">
                 Last name
               </label>
               <input
@@ -103,7 +105,7 @@ function Profile({ update }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="interests" className="form-label">
+              <label htmlFor="interests" className="form-label text-start w-100">
                 Interests
               </label>
               <input
@@ -119,7 +121,7 @@ function Profile({ update }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="hobbies" className="form-label">
+              <label htmlFor="hobbies" className="form-label text-start w-100">
                 Hobbies
               </label>
               <input
@@ -135,7 +137,7 @@ function Profile({ update }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="radius" className="form-label">
+              <label htmlFor="radius" className="form-label text-start w-100">
                 Match Radius
               </label>
               <input
@@ -152,7 +154,7 @@ function Profile({ update }) {
             </div>
             {/* //TODO: add zipcode verification */}
             <div className="mb-3">
-              <label htmlFor="zipcode" className="form-label">
+              <label htmlFor="zipcode" className="form-label text-start w-100">
                 Zipcode
               </label>
               <input
@@ -169,7 +171,7 @@ function Profile({ update }) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="profileImg" className="form-label">
+              <label htmlFor="profileImg" className="form-label text-start w-100">
                 Profile Image
               </label>
               <input
