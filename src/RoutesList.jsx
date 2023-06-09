@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
 import Homepage from './Homepage';
-import LoginForm from './LoginForm';
+import AuthForm from './AuthForm';
+import ProfileForm from './ProfileForm';
 import userContext from "./userContext";
 
  /** DESCRIPTION
@@ -13,18 +14,18 @@ import userContext from "./userContext";
 * PARENT -> RoutesList -> {CHILDREN}
 */
 
-function RoutesList ({login, signup, update}) {
+function RoutesList ({login, signUp, update}) {
   const { user } = useContext(userContext);
 
 
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
-      <Route path="/login" element={<LoginForm login={login} />} />
-      <Route path="/signup" element={<SignUpForm signUp={signUp}/>} />
+      <Route path="/login" element={<AuthForm handleAuth={login} formTitle={"Login"} />} />
+      <Route path="/signup" element={<AuthForm handleAuth={signUp} formTitle={"Signup"}/>} />
       {user &&
       <>
-      <Route path="/profile" element={<Profile update={update} />} />
+      <Route path="/profile" element={<ProfileForm update={update} />} />
       <Route path="/matches" element={<Matches />} />
       </>
       }

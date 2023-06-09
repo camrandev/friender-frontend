@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_APP_BASE_URL || "http://localhost:5173/";
+const BASE_URL = import.meta.env.VITE_APP_BASE_URL || "http://localhost:5001/";
 
 /** API Class.
  *
@@ -48,7 +48,8 @@ export default class FrienderApi {
    /** Signup a user.
    *  {email, password} -> {token}
    */
-  static async signup(email, password) {
+  static async signup({email, password}) {
+    console.log('email', email, "password", password, 'from signup function')
     let res = await this.request(`signup`, {email, password}, "post");
     this.token = res.access_token;
     return res.access_token;

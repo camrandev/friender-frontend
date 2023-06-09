@@ -1,37 +1,153 @@
-import { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Navigate } from "react-router-dom";
+import userContext from "./userContext";
 
-function ProfileForm({updateProfile}) {
-  const [selectedFile, setSelectedFile] = useState(null);
+function Profile({ update }) {
+  const { user } = useContext(userContext);
+  const [formData, setFormData] = useState({
+    username: user.username,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    image: null, // Added for image upload
+  });
 
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
+  const [errors, setErrors] = useState([]);
+  const [updated, setUpdated] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Here you would handle the form submission.
-    // For example, you could use the selectedFile state variable to send the file to a server.
-    let formData = new FormData();
-
-    // Append the text inputs to the form data
-    formData.append("name", "John Doe");
-    formData.append("email", "john.doe@example.com");
-    if (fileInput.files[0]) {
-      formData.append('file', fileInput.files[0]);
+  function handleChange(evt) {
+    const { name, value } = evt.target;
+    setFormData((fData) => ({
+      ...fData,
+      [name]: value,
+    }));
   }
 
+  function handleImageChange(evt) {
+    setFormData((fData) => ({
+      ...fData,
+      image: evt.target.files[0],
+    }));
+  }
 
-    updateProfile(formData)
+  function handleError(error) {
+    console.log("error in handleErrors is...", error);
+    setErrors([...error]);
+  }
 
-    console.log(selectedFile);
-  };
+  async function handleSubmit(evt) {
+    evt.preventDefault();
+    try {
+      let form = new FormData();
+      for (let key in formData) {
+        form.append(key, formData[key]);
+      }
+      await update(form);
+    } catch (error) {
+      handleError(error);
+      return;
+    }
+    handleError([]);
+    setUpdated(true);
+  }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="file" onChange={handleFileChange} />
-      <button type="submit">Submit</button>
-    </form>
+    <div className="col-6 col mx-auto position-absolute top-50 start-50 translate-middle text-black ">
+      <h2 className="text-white">Profile</h2>
+      <form onSubmit={handleSubmit} className="bg-white py-4 px-4" encType="multipart/form-data">
+        <fieldset disabled>
+          <div className="mb-3">
+            <label htmlFor="username" className="form-label">
+              Username
+            </label>
+            <input
+              name="username"
+              type="text"
+              className="form-control"
+              id="username"
+              value={user.username || ""}
+              onChange={handleChange}
+              aria-describedby="usernameHelp"
+              aria-required="true"
+              required
+            />
+          </div>
+        </fieldset>
+        <div className="mb-3">
+          <label htmlFor="firstName" className="form-label">
+            First name
+          </label>
+          <input
+            name="firstName"
+            type="text"
+            className="form-control"
+            id="firstName"
+            value={formData?.firstName || ""}
+            onChange={handleChange}
+            aria-describedby="firstNameHelp"
+            aria-required="true"
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="lastName" className="form-label">
+            Last name
+          </label>
+          <input
+            name="lastName"
+            type="text"
+            className="form-control"
+            id="lastName"
+            value={formData?.lastName || ""}
+            onChange={handleChange}
+            aria-describedby="lastNameHelp"
+            aria-required="true"
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="email" className="form-label">
+            Email
+          </label>
+          <input
+            name="email"
+            type="email"
+            className="form-control"
+            id="email"
+            value={formData?.email || ""}
+            onChange={handleChange}
+            aria-describedby="emailHelp"
+            aria-required="true"
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="image" className="form-label">
+            Profile Image
+          </label>
+          <input
+            name="image"
+            type="file"
+            className="form-control"
+            id="image"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+        </div>
+        {errors.length > 0 && (
+          <div className="alert alert-danger">
+            {errors.map((error, index) => (
+              <p key={index} className="mb-0 small">
+                Error: {error}
+              </p>
+            ))}
+          </div>
+        )}
+        {updated && <p className="alert alert-success">Updated Successfully</p>}
+        <button className="btn btn-primary">Submit</button>
+      </form>
+    </div>
   );
 }
 
-export default ProfileForm;
+export default Profile;

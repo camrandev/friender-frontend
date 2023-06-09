@@ -29,7 +29,7 @@ function App() {
 
   /**logs the current user out */
   function logout() {
-    setIsLoading(false);
+    // setIsLoading(false);
     setToken("");
     setUser(null);
   }
@@ -41,18 +41,19 @@ function App() {
 
   /**allows a new user to sign up */
   async function signUp(formData) {
-    const newToken = await JoblyApi.signUpUser(formData);
+    console.log('hi from signup')
+    const newToken = await FrienderApi.signup(formData);
     setToken(newToken);
   }
 
-    /**allows a user to update their own info when logged in */
-    async function update({ username, lastName, email, firstName }) {
-      const userInfo = await JoblyApi.updateUser(
-        { lastName, email, firstName },
-        username
-      );
-      setUser({ ...userInfo });
-    }
+  /**allows a user to update their own info when logged in */
+  async function update({ username, lastName, email, firstName }) {
+    const userInfo = await FrienderApi.updateUser(
+      { lastName, email, firstName },
+      username
+    );
+    setUser({ ...userInfo });
+  }
 
   //NOTE: need to modify, as we are potentially storing user matches state lower down
   // if (isLoading)

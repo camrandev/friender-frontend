@@ -16,9 +16,9 @@ function Homepage() {
 
   return (
     <div className="position-absolute top-50 start-50 translate-middle">
-      <h1 className="text-center text-white text-shadow">Jobly</h1>
+      <h1 className="text-center text-white text-shadow">Friender</h1>
       <h4 className="text-center text-white">
-        All the jobs in one, convenient place.
+        All of the friends, none of the benefits
       </h4>
       {user && (
         <h2 className="text-white text-center">
@@ -26,7 +26,7 @@ function Homepage() {
         </h2>
       )}
       {!user && (
-        <div className=" d-flex justify-content-center ">
+        <div className="d-flex justify-content-center">
           <Link to="/login" className="btn btn-primary mr-5">
             Log in
           </Link>

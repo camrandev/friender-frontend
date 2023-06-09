@@ -14,7 +14,7 @@ import { Navigate } from "react-router-dom";
  * RoutesList -> LoginForm
  */
 
-function LoginForm({ login }) {
+function LoginForm({ handleAuth, formTitle }) {
   const [formData, setFormData] = useState({email:"", password: ""});
   const { user } = useContext(userContext);
   const [errors, setErrors] = useState([]);
@@ -36,18 +36,18 @@ function LoginForm({ login }) {
     evt.preventDefault();
     try {
       console.log("form data is", formData)
-      await login(formData);
+      await handleAuth(formData);
       handleError([]);
     } catch (error) {
       handleError(error);
     }
   }
 
-  if (user) return <Navigate to="/companies" />;
+  if (user) return <Navigate to="/matches" />;
 
   return (
-    <div className="col-4 mx-auto position-absolute top-50 start-50 translate-middle text-white">
-      <h2>Login</h2>
+    <div className="col-4 mx-auto position-absolute top-50 start-50 translate-middle">
+      <h2>{formTitle}</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">

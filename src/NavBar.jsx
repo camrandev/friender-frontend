@@ -19,10 +19,10 @@ function NavBar({ logout }) {
   }
 
   return (
-    <nav className="navbar navbar-expand-sm navbar-light bg-light">
+    <nav className="navbar navbar-expand-sm navbar-light bg-light fixed-top">
       <div className="container">
         <NavLink to="/" className="navbar-brand">
-          Jobly
+          Friender
         </NavLink>
         {user ? (
           <div className="navbar-nav mr-auto">
