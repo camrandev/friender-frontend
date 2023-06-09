@@ -12,13 +12,11 @@ import userContext from "./userContext";
  * PARENT -> Matches -> {CHILDREN}
  */
 
-const test = [1, 2, 3, 4, 5];
-
 function Matches() {
   const { user } = useContext(userContext);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [matches, setMatches] = useState(test);
+  const [matches, setMatches] = useState([]);
   console.log('matches from Matches', matches)
 
   //use effect to get the list of potential matches
@@ -45,7 +43,7 @@ function Matches() {
 
   return (
     <div>
-      <div className="d-flex flex-row">{renderMatchCards()}</div>
+      <div className="flex-column">{renderMatchCards()}</div>
     </div>
   );
 }
