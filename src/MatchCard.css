@@ -1,0 +1,23 @@
+.match-card {
+  position: relative;
+  transition: box-shadow 0.3s;
+  /* width: 65%; */
+}
+
+.match-card:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.match-card:hover .text-dark {
+  color: blue !important;
+}
+
+.image-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.match-logo {
+  width: 4.5rem;
+}

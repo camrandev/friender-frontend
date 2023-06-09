@@ -87,6 +87,15 @@ export default class FrienderApi {
     return res.potentials;
   }
 
+    /** get a users mutual matches.
+   */
+    static async getMatches(email) {
+      let res = await this.request(`user/${email}/matches`, {
+        token: this.token,
+      });
+      return res.matches;
+    }
+
 
   //
   static async likePotential(email, likeeId) {
