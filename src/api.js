@@ -18,7 +18,11 @@ export default class FrienderApi {
     console.debug("API Call:", endpoint, data, method);
 
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = {Authorization: `Bearer ${FrienderApi.token}`};
+    const headers = {
+      Authorization: `Bearer ${FrienderApi.token}`,
+      "Content-Type":
+        method === "patch" ? "multipart/form-data" : "application/json",
+    };
     const params = method === "get" ? data : {};
 
     try {
@@ -39,28 +43,28 @@ export default class FrienderApi {
   /** Login a user.
    *  {email, password} -> {token}
    */
-  static async login({email, password}) {
-    console.log('email', email, "password", password, 'from signup function')
-    let res = await this.request(`login`, {email, password}, "post");
+  static async login({ email, password }) {
+    console.log("email", email, "password", password, "from signup function");
+    let res = await this.request(`login`, { email, password }, "post");
     this.token = res.access_token;
-    console.log('token post login', this.token)
+    console.log("token post login", this.token);
     return res.access_token;
   }
 
-   /** Signup a user.
+  /** Signup a user.
    *  {email, password} -> {token}
    */
-  static async signup({email, password}) {
-    let res = await this.request(`signup`, {email, password}, "post");
+  static async signup({ email, password }) {
+    let res = await this.request(`signup`, { email, password }, "post");
     this.token = res.access_token;
     return res.access_token;
   }
 
-   /** Update a user profile.
+  /** Update a user profile.
    *  {email, firstName, lastName, password, email} -> {user}
    */
   static async updateProfile(email, updatedData) {
-    console.log('args from updateProfile', email, updatedData)
+    console.log("args from updateProfile", email, updatedData);
     let res = await this.request(`user/${email}/update`, updatedData, "patch");
     return res.user;
   }
@@ -69,28 +73,31 @@ export default class FrienderApi {
    *  {email, token} -> {user}
    */
   static async getUser(email) {
-    let res = await this.request(`user/${email}`, {token: this.token});
+    let res = await this.request(`user/${email}`, { token: this.token });
     return res.user;
   }
 
-   /** Get a user's potential matches.
+  /** Get a user's potential matches.
    *  {email, token} -> {potentials}
    */
   static async getPotentialMatches(email) {
-    let res = await this.request(`user/${email}/potentials`, {token: this.token});
+    let res = await this.request(`user/${email}/potentials`, {
+      token: this.token,
+    });
     return res.potentials;
   }
 
-     /** Signup a user.
-   *  {email, password} -> {token}
-   */
-     static async uploadProfilePhoto(email, photo) {
-      let res = await this.request(`user/${email}/s3`, {}, "post");
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data'
-    // }
 
-      this.token = res.access_token;
-      return res.access_token;
-    }
+  //
+  static async likePotential(email, likeeId) {
+    let res = await this.request(`user/${email}/likes`, {likeeId}, "post");
+
+    return res.potentials;
+  }
+
+  static async rejectPotential(email, rejecteeId) {
+    let res = await this.request(`user/${email}/rejects`, {rejecteeId}, "post");
+
+    return res.potentials;
+  }
 }
