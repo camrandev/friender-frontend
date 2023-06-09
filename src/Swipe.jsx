@@ -11,11 +11,9 @@ import userContext from "./userContext";
  * PARENT -> Swipe -> {CHILDREN}
  */
 
-const test = [1, 2, 3, 4, 5];
-
 function Swipe() {
   const { user } = useContext(userContext);
-  const [potentials, setPotentials] = useState(test);
+  const [potentials, setPotentials] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   console.log(potentials);
 
@@ -71,7 +69,7 @@ function Swipe() {
   if (isLoading)
     return <h1 className="position-absolute top-50 start-50 ">Loading....</h1>;
 
-  const match = potentials.length > 0 ? potentials[0] : null;
+  const match = potentials?.length > 0 ? potentials[0] : null;
 
   if (!match)
     return (
