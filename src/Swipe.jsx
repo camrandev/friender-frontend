@@ -15,7 +15,7 @@ function Swipe() {
   const { user } = useContext(userContext);
   const [potentials, setPotentials] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  console.log(potentials);
+
 
   //use effect to get the list of potential matches
   useEffect(() => {

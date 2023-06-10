@@ -1,10 +1,9 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { BrowserRouter, Navigate } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import RoutesList from "./RoutesList";
 import NavBar from "./NavBar";
 import FrienderApi from "./api";
-import Homepage from "./Homepage";
 import jwt_decode from "jwt-decode";
 import userContext from "./userContext";
 import useLocalStorage from "./useLocalStorage";
@@ -25,9 +24,7 @@ import useLocalStorage from "./useLocalStorage";
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useLocalStorage();
-  console.log('token from app', token)
   const [user, setUser] = useState(null);
-  console.log('user in App', user)
 
   /**logs the current user out */
   function logout() {
@@ -56,14 +53,13 @@ function App() {
   useEffect(() => {
     async function getUserData() {
       if (token !== "") {
-        const { sub:email } = jwt_decode(token);
-        console.log('decoded token', jwt_decode(token))
+        const { sub: email } = jwt_decode(token);
         FrienderApi.token = token;
         const userInfo = await FrienderApi.getUser(email);
         setIsLoading(false);
         setUser({ ...userInfo });
       } else {
-        console.log('lol')
+        console.log("lol");
         setIsLoading(false);
       }
     }
