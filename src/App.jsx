@@ -17,7 +17,7 @@ import useLocalStorage from "./useLocalStorage";
  * - isloading(bool)
  * - user
  *
- * context: adds user to contetx
+ * context: adds user object to userContext
  *
  * App -> {Routeslist, NavBar}
  */
@@ -33,23 +33,27 @@ function App() {
     setUser(null);
   }
 
+  /**logs in an existing user */
   async function login(formData) {
     const newToken = await FrienderApi.login(formData);
     setToken(newToken);
   }
 
-  /**allows a new user to sign up */
+  /**signs up a new user*/
   async function signUp(formData) {
     const newToken = await FrienderApi.signup(formData);
     setToken(newToken);
   }
 
-  /**allows a user to update their own info when logged in */
+  /**updates the profile for an existing user */
   async function update(email, updatedData) {
     const userInfo = await FrienderApi.updateProfile(email, updatedData);
     setUser({ ...userInfo });
   }
 
+  /**if a token is present, fetch the user associated with the token
+   * and add the user to userContext
+   */
   useEffect(() => {
     async function getUserData() {
       if (token !== "") {
@@ -69,7 +73,7 @@ function App() {
   //NOTE: need to modify, as we are potentially storing user matches state lower down
   if (isLoading)
     return (
-      <h1 className="position-absolute top-50 start-50 text-white">
+      <h1 className="position-absolute top-50 start-50">
         Loading....
       </h1>
     );
